@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual Environment
+venv/
+.venv/
+
+# Environment Variables
+.env
+
+# Logs
+logs/*.log
+!logs/.gitkeep
+
+# Database
+*.db
+database/sqlite.db
+
+# Output Files
+outputs/videos/*
+!outputs/videos/.gitkeep
+
+outputs/images/*
+!outputs/images/.gitkeep
+
+outputs/timeline/*
+!outputs/timeline/.gitkeep
+
+# Uploaded Videos
+uploads/*
+!uploads/.gitkeep
+
+# VS Code
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Models
+models/*.pt
