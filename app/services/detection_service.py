@@ -35,12 +35,23 @@ class DetectionService:
         )
 
         processed_frames = 0
-
-        for _ in results:
+        detection_frequency = {}
+        
+        for result in results:
             processed_frames += 1
+            
+            for box in result.boxes:
+                
+                class_id = int(box.cls)
+                class_name = result.names[class_id]
+                detection_frequency[class_name] = (
+                    detection_frequency.get(class_name, 0) + 1
+                    
+                )
 
         return {
             "status": "completed",
             "output_folder": str(OUTPUT_FOLDER / "detections"),
             "frames_processed": processed_frames,
+            "detection_frequency": detection_frequency,
         }
