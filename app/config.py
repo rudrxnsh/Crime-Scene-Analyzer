@@ -68,5 +68,13 @@ REQUIRED_DIRECTORIES = [
     SAMPLE_VIDEO_FOLDER,
 ]
 
+# =====================================================
+# YOLO CONFIGURATION
+# =====================================================
+YOLO_MODEL = "yolov8n.pt"
+YOLO_CONFIDENCE = 0.4
+YOLO_IOU = 0.45
+
+
 for directory in REQUIRED_DIRECTORIES:
     directory.mkdir(parents=True, exist_ok=True)

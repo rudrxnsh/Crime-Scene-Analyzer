@@ -1,38 +1,46 @@
-from pathlib import Path 
+from detector import detector
 
-from detector import detector 
-from app.config import OUTPUT_FOLDER 
+from app.config import (
+    OUTPUT_FOLDER,
+    YOLO_CONFIDENCE,
+    YOLO_IOU,
+)
 
 
 class DetectionService:
     """
     Handles object detection using YOLO.
     """
-        
+
     def detect_video(self, video_path: str):
         """
-        Run YOLO object detection on the give video.
-        
+        Run YOLO object detection on the given video.
+
         Args:
-            video_path (str): Path to the video file
-            
+            video_path (str): Path to the uploaded video.
+
         Returns:
             dict
-        
         """
-        
-        results = detector.predict(
-            source = video_path,
-            save = True,
-            project = str(OUTPUT_FOLDER),
-            name = "detections",
-            exist_ok = True,
-            conf = 0.4,
-            verbose = False
+
+        results = detector.detect_video(
+            source=video_path,
+            save=True,
+            project=str(OUTPUT_FOLDER),
+            name="detections",
+            exist_ok=True,
+            conf=YOLO_CONFIDENCE,
+            iou=YOLO_IOU,
+            verbose=False,
         )
-        
+
+        processed_frames = 0
+
+        for _ in results:
+            processed_frames += 1
+
         return {
             "status": "completed",
             "output_folder": str(OUTPUT_FOLDER / "detections"),
-            "frames_processed": len(results)
+            "frames_processed": processed_frames,
         }

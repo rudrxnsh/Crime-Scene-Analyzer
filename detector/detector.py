@@ -1,27 +1,33 @@
 from ultralytics import YOLO
 
+from app.config import YOLO_MODEL
+
+
 class Detector:
     """
-    YOLO Object Detector
-    
-    Loads the YOLO model only once and resues it for every inference request.
+    YOLO Object Detector.
+
+    Loads the YOLO model only once and reuses it
+    for every inference request.
     """
-    
-    def __init__(self, model_path: str = "yolov8n.pt"):
-        self.model = YOLO(model_path)
-        
-    def predict(self, source, **kwargs):
+
+    def __init__(self):
+        self.model = YOLO(YOLO_MODEL)
+
+    def detect_video(self, source, **kwargs):
         """
-        Run inference on an image or video.
-        
+        Run object detection on a video.
+
         Args:
-        source: image path, video path or webcam
-        **kwargs: YOLO inference parameters
-        
-        Returns: 
-            Ultralytics Results object
-        
+            source: Path to the input video.
+            **kwargs: Additional YOLO prediction parameters.
+
+        Returns:
+            Generator of YOLO Results objects.
         """
-        return self.model.predict(source, **kwargs)
-    
-    
+
+        return self.model.predict(
+            source=source,
+            stream=True,
+            **kwargs
+        )
