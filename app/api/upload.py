@@ -1,8 +1,7 @@
 from flask import Blueprint, request
 
 from app.core.responses import success_response, error_response
-from app.services.detection_service import DetectionService
-from app.services.video_service import VideoService
+from app.services.pipeline_service import PipelineService
 
 upload_bp = Blueprint("upload", __name__)
 
@@ -25,19 +24,12 @@ def upload_video():
         )
 
     # Save uploaded video
-    video = VideoService.save_video(file)
-    
-    
-    # Run YOLO detection
-    detection = DetectionService().detect_video(
-        video["path"]
-    )
+    pipeline = PipelineService()
+
+    result = pipeline.process_video(file)
 
     return success_response(
-        message="Video uploaded and processed successfully.",
-        data={
-            "video": video,
-            "detection": detection
-        },
+        message="Video processed successfully.",
+        data=result,
         status_code=201
     )
