@@ -30,7 +30,7 @@ SECRET_KEY = os.getenv("SECRET_KEY", "crime-scene-analyzer-dev")
 
 DEBUG = os.getenv("FLASK_DEBUG","True") == "True"
 
-MAX_CONTENT_LENGTH = 100 * 1024 * 1024 # 500 MB
+MAX_CONTENT_LENGTH = 100 * 1024 * 1024 # 100 MB
 
 
 # =====================================================

@@ -4,6 +4,9 @@ from flask_cors import CORS
 from app.config import DEBUG, SECRET_KEY
 from app.utils.logging_config import setup_logging
 
+from app.api.health import health_bp
+from app.api.upload import upload_bp
+
 def create_app():
     """
         Application Factory
@@ -28,12 +31,8 @@ def create_app():
     # -----------------------------
     # Register Blueprints
     # -----------------------------
-    # (We'll add these in the next step)
-    # from app.api.upload import upload_bp
-    # from app.api.health import health_bp
-    #
-    # app.register_blueprint(upload_bp)
-    # app.register_blueprint(health_bp)
+    app.register_blueprint(health_bp)
+    app.register_blueprint(upload_bp)
 
     return app
     
